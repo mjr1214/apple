@@ -1,0 +1,908 @@
+@import "mixin";
+
+//导航栏
+$bro-logo:(
+   "apple":21px,
+   "mac":31px,
+   "ipad":30px   ,
+   "iphone":48px,
+   "watch":44px,
+   "Tv":40px,
+   "Music":40px,
+   "Support":57px,
+   "sousuo":20px,
+   "shangdian":18px
+);
+$mobi-ul: "mac", "ipad", "iphone", "watch", "Tv", "Music", "Support","sousuo";
+
+$mobi-logo:(
+   "apple":21px,
+   "shangdian":18px
+);
+.top{
+  width:100%;
+  position: absolute;
+  top:0;
+  left:0;
+  z-index: 50;
+  background:rgba(0,0,0,0.8);
+  .search-box{
+    width:682px;
+    z-index: -1;
+    overflow: hidden;
+    height:auto;
+    position: absolute;
+    left:0;
+    right:0;
+    top:0;
+    margin:0 auto;
+    .search{
+      width:640px;
+      margin-left: 10px;
+      padding-left:30px;
+      opacity: 0;
+      height:44px;
+      background:#109e67;
+      transform: translate3d(100%,0,0);
+      transition:transform .5s ease,opacity .5s ease;
+      background:url(../img/sousuo.svg) left center no-repeat;
+      input{
+        width:100%;
+        height:44px;
+        color:#fff;
+        line-height: 44px;
+        outline: none;
+        background:rgba(0,0,0,0.8);
+        border:0px;
+      }
+    }
+    .card{
+      width:100%;
+      height:222px;
+      padding-top: 8px;
+      padding-bottom: 15px;
+      &.over{
+        overflow-y: scroll;
+      }
+      background:#fff;
+      opacity: 0;
+      color:#999;
+      transition:opacity .5s ease 0.1s;
+      li{
+        font-size: 12px;
+        margin:4px;
+        height:30px;
+        padding-left: 20px;
+        line-height: 30px;
+        a{
+          font-size: 15px;
+          color:#999;
+          padding: 0 20px;
+          line-height: 30px;
+        }
+        opacity: 0;
+        transform: translate3d(100%,0,0);
+        @for $i from 1 through 6{
+          &:nth-child(#{$i}){
+            transition:transform 0.4s ease ($i/10)*0.2s,opacity 0.4s ease ($i/10)*0.2s;
+          }
+        }
+
+      }
+      @for $i from 2 through 6{
+      li:nth-child(#{$i}):hover{
+        background: #e7e7e7;
+        a{
+          color:#2684CF;
+        }
+      }
+    }
+
+    }
+  }
+  .mask{
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.2);
+    position: absolute;
+    top:44px;
+    left:0;
+    display: none;
+  }
+  .bro-item{
+    margin: 0 auto;
+    max-width:1000px;
+    height:44px;
+    text-align: justify;
+    padding: 0 10px;
+    position: relative;
+    //overflow: hidden;
+    li{
+      a.menu{
+        transition: transform 0.8s ease 0s;
+      }
+      display: inline-block;
+      height:100%;
+      margin: 0 -10px;
+      a{
+        padding: 0 10px;
+        display: block;
+        height:100%;
+        &:hover{
+          opacity: 0.5;
+        }
+        transition:opacity 0.8s ease;
+      }
+
+      @each $c in map_keys($bro-logo){
+        .#{$c}{
+          width:map_get($bro-logo,$c);
+          background: url("../img/" + $c +".svg") center center no-repeat;
+        }
+      }
+    }
+    .close{
+      position: absolute;
+      right:10px;
+      top:0px;
+      width:38px;
+      height:44px;
+      opacity: 0;
+      z-index: -1;
+      &:hover{
+        cursor:pointer;
+      }
+      &:hover span{
+        background: rgba(255,255,255,0.8);
+      }
+      span{
+        margin-top: 13px;
+        position: absolute;
+        width:1px;
+        background:#fff;
+        display:inline-block;
+        height:18px;
+        transition: background 0.8s ease;
+      }
+      .close-left{
+        margin-left:12px;
+        opacity: 0;
+        transform: rotate(0deg);
+        transition: transform 0.8s ease 0s,opacity 0.8s ease;
+      }
+      .close-right{
+        opacity: 0;
+        margin-left: 12px;
+        transform: rotate(0deg);
+        transition: transform 0.8s ease 0s,opacity 0.8s ease;
+      }
+    }
+    &:after{
+      display:inline-block;
+      content:"";
+      width:100%;
+      height:0px;
+      font-size: 0;
+      line-height: 0;
+    }
+    @include bigscr{
+      display: none;
+    }
+  }
+  .mobi-item{
+    display: none;
+    width:100%;
+    height:48px;
+    background:rgba(0,0,0,0.8);
+    text-align: justify;
+    @include bigscr{
+      display: block;
+    }
+    li{
+      display: inline-block;
+      a{
+       height:48px;
+        display: block;
+        &:hover{
+          opacity: 0.5;
+        }
+      }
+      @each $c in map_keys($mobi-logo){
+        .#{$c}{
+          width:map_get($mobi-logo,$c);
+          background:url("../img/" + $c + "_small.svg")center center no-repeat;
+          padding:0 10px;
+        }
+      }
+      transition: transform 0.8s ease 0.2s;
+    }
+    .guanbi{
+      width:48px;
+      height:48px;
+      position: relative;
+      transition:transform 0.8s ease;
+      span{
+        display: block;
+        position: absolute;
+        width:17px;
+        height:1px;
+        background:#fff;
+        left:0;
+        right:0;
+        margin:0 auto;
+        line-height: 24px;
+        transform-origin: center center;
+        transition:transform 0.8s ease;
+      }
+      .close-up{
+        transform-origin:center center;
+        top:20px;
+      }
+      .close-down{
+        bottom:20px;
+      }
+      &:hover{
+        cursor:pointer;
+      }
+      &:hover span{
+        background:rgba(255,255,255,0.8)
+      }
+    }
+    &::after{
+      content:"";
+      display:inline-block;
+      font-size: 0;
+      line-height: 0;
+      width:100%;
+      height:0;
+    }
+  }
+}
+.mobi-mask{
+  display: none;
+  @include bigscr{
+    display: block;
+  }
+  width:100%;
+  height:100%;
+  position: absolute;
+  top:48px;
+  z-index: 200;
+  background:rgb(0,0,0);
+  &.zk{
+    ul{
+
+      li{
+        transform:translate3d(-200px,-500px,0);
+        transition:transform 3s ease;
+      }
+    }
+  }
+  ul{
+    &.over{
+      overflow-y:scroll;
+    }
+    padding:0 48px 48px;
+    li{
+      transform:translate3d(0,0px,0px);
+      transition:transform 3s ease 5s;
+      position: relative;
+      border-bottom: 1px solid #333;
+      @for $i from 1 through 8{
+        .#{nth($mobi-ul,$i)}{
+          max-width: 68px;
+          display: block;
+          height:48px;
+          background:url("../img/mobi_" + nth($mobi-ul,$i) + ".svg") no-repeat;
+          transition: opacity 0.8s ease 0s;
+        }
+      }
+      span{
+        position: absolute;
+        top:0;
+        left:30px;
+        color:#fff;
+        font-weight: lighter;
+        display: block;
+        line-height: 48px;
+      }
+      a:hover{
+        opacity: 0.5;
+      }
+    }
+    li:nth-child(8){
+      border-bottom: 1px solid #c0c0c0;
+    }
+  }
+}
+
+.top.open{
+  .mobi-item{
+    .guanbi{
+      transform: rotate(45deg);
+      .close-up{
+        transform:translate3d(1px,7px,0) rotate(90deg);
+      }
+      .close-down{
+        transform:translate3d(1px,0px,0);
+      }
+    }
+    li:nth-child(3){
+      transform: translate3d(100px,0,0);
+    }
+  }
+
+}
+.top.sx{
+  .mask{
+    display: block;
+    @include bigscr{
+      display:none;
+    }
+  }
+  .bro-item li .menu{
+    transform: scale(0,0);
+  }
+  .bro-item .close{
+    opacity: 1;
+    z-index: 1;
+    .close-left{
+      opacity: 1;
+      transform:rotate(-45deg);
+    }
+    .close-right{
+      opacity: 1;
+      transform:rotate(45deg);
+    }
+  }
+  .search-box{
+    z-index: 1;
+    .search{
+      transform: translate3d(0,0,0);
+      opacity: 1;
+    }
+    .card{
+      opacity: 1;
+      li{
+        opacity: 1;
+        transform: translate3d(0,0,0);
+      }
+    }
+    @include  bigscr{
+      display: none;
+    }
+  }
+}
+
+//轮播图片
+
+$ban-img:"iphone","watch","airpods","event";
+
+
+.wheel{
+  width:100%;
+  min-height: 480px;
+  height:calc(100vh - 42px);
+  max-height:592px;
+  @include bigscr{
+    height:calc(100vh - 76px);
+  }
+  position: relative;
+  z-index:0;
+  background: #2c9c38;
+  overflow: hidden;
+  .imgbox{
+    width:100%;
+    height:100%;
+    .ban-img{
+      width:100%;
+      height:100%;
+      display: none;
+      position: absolute;
+      top:0;
+      left:0;
+      transition:animation;
+      div{
+        transition: transform 1s ease;
+      }
+      h2{
+        transition: top 1s ease,transform 1s ease;
+      }
+      &.active{
+        display:block;
+      }
+      &.leave{
+        z-index: 10;
+        display:block;
+        animation:leaves 1.9s ease;
+        div{
+          transform: translate3d(-100px,20px,0) scale(0.5,0.5);
+        }
+        h2{
+          top:100px ;
+          transform: translate3d(-100px,20px,0) scale(0.5,0.5);
+        }
+      }
+      @keyframes leaves {
+         0%{transform: translate3d(0%,0,0);}
+         100%{transform: translate3d(-100px,0,0);}
+      }
+      &.right{
+        z-index: 20;
+        display:block;
+        animation:rights 1.9s ease;
+      }
+      @keyframes rights {
+        0%{transform: translate3d(100%,0,0);}
+        100%{transform: translate3d(0,0,0);}
+      }
+      &.enter{
+        z-index: 20;
+        display:block;
+        animation:enters 1.9s ease;
+      }
+      @keyframes enters {
+        0%{transform: translate3d(0,0,0);}
+        100%{transform: translate3d(100%,0,0);}
+      }
+      &.left{
+        z-index: 10;
+        display:block;
+        animation:lefts 1.9s ease;
+      }
+      @keyframes lefts {
+        0%{transform: translate3d(-100px,0,0);}
+        100%{transform: translate3d(0,0,0);}
+      }
+      h2{
+        color:#ffffff;
+        position: absolute;
+        top:110px;
+        font-size: 40px;
+        font-weight: normal;
+        font-family: inherit;
+        left:0;
+        right:0;
+        margin:0 auto;
+        text-align: center;
+        @include  bigscr{
+          top:110px;
+          font-size: 20px;
+          font-weight: normal;
+          font-family: inherit;
+        }
+      }
+    }
+  @each $i in $ban-img{
+    .#{$i}{
+      bottom:0;
+      left:0;
+      top:0;
+      z-index: 52;
+      height:100%;
+      position:absolute;
+      background:#000 url("../img/" + $i + "_large.jpg") center bottom no-repeat;
+      background-size:contain;
+    }
+    @include bigscr{
+      .#{$i}{
+        bottom:0;
+        left:0;
+        top:0;
+        z-index: 52;
+        height:100%;
+        position:absolute;
+        background:#000 url("../img/" + $i + "_portrait_small_2x.jpg") center bottom no-repeat;
+        background-size:contain;
+      }
+    }
+  }
+  .ban-img:nth-child(1){
+    background-color: #000;
+    .iphone_zi{
+      width:95px;
+      height:24px;
+    }
+  }
+  .ban-img:nth-child(2){
+    background-color: #F3F3F3;
+    .watch_zi{
+      width:148px;
+      height:56px;
+    }
+  }
+  .ban-img:nth-child(3){
+    background-color: #fff;
+    h2{
+      color:#000;
+    }
+    .airpods_zi{
+      width:108px;
+      height:23px;
+    }
+  }
+  .ban-img:nth-child(4){
+    background-color: #000;
+    .event_zi{
+      width:280px;
+      height:30px;
+    }
+  }
+}
+  .btn{
+    height:22px;
+    width:240px;
+    position: absolute;
+    left:0;
+    right:0;
+    background-clip: content-box;
+    bottom:33px;
+    z-index: 150;
+    margin:0 auto;
+    li{
+      width:50px;
+      float: left;
+      height:2px;
+      padding:10px 0;
+      margin:0 5px;
+      &:hover{
+        cursor: pointer;
+      }
+      div{
+        width:50px;
+        float: left;
+        height:2px;
+        background:rgba(230,230,230,0.8);
+        span{
+           width:0px;
+          height:2px;
+          display: block;
+          background:rgba(0,0,0,0.8);
+          &.now{
+            width:50px;
+            transition: width 5s ease;
+          }
+          &.dq{
+            width:50px;
+          }
+        }
+
+      }
+    }
+
+  }
+  @each $i in $ban-img{
+     .ban-img.#{$i}{
+       .#{$i}_zi{
+         width:95px;
+         background-size: contain;
+         height:24px;
+         position: absolute;
+         left:0;
+         right:0;
+         top:76px;
+         margin:0 auto;
+         background:url("../img/logo_" + $i + "_large.png") center center no-repeat;
+       }
+     }
+  }
+  .jt{
+    width:100%;
+    height:64px;
+    position: absolute;
+    z-index: 70;
+    top:0;
+    bottom:0;
+    margin:auto;
+    li{
+      height:100%;
+      width:64px;
+      cursor: pointer;
+      background:rgba(180,180,180,0.25);
+      border-radius: 50%;
+      opacity: 0;
+      font-size: 40px;
+      font-family: "黑体";
+      text-align: center;
+      line-height: 64px;
+      color:#848484;
+      font-weight: bold;
+     &.zjt{
+       float: left;
+       margin-left: 18px;
+     }
+      &.yjt{
+        margin-right: 18px;
+        float: right;
+      }
+    }
+      @include bigscr{
+        display:none;
+      }
+  }
+
+
+}
+
+//广告位图片
+.row{
+  overflow: hidden;
+}
+.col{
+  float:left;
+  height:200px;
+  box-sizing:border-box;
+  border-right: 2px solid #fff;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+}
+$adsname:"ios","watchos","swift_playgrounds","music";
+@each $i in $adsname{
+  .#{$i}{
+    background:url("../img/" + $i + "_large.jpg") center center no-repeat;
+  }
+}
+@for $i from 1 through 12{
+  .d-#{$i}{
+    width:percentage($i/12);
+  }
+}
+@include adsm{
+  @each $i in $adsname{
+    .#{$i}{
+      background:url("../img/" + $i + "_medium.jpg") center center no-repeat;
+      box-sizing: border-box;
+    }
+  }
+  @for $i from 1 through 12{
+    .m-#{$i}{
+      width:percentage($i/12);
+    }
+  }
+}
+@include adss{
+  @each $i in $adsname{
+    .#{$i}{
+      background:url("../img/" + $i + "_small.jpg") center center no-repeat;
+      box-sizing: border-box;
+    }
+  }
+  @for $i from 1 through 12{
+    .s-#{$i}{
+      width:percentage($i/12);
+    }
+  }
+}
+
+.about{
+  max-width:980px;
+  height:260px;
+  padding-top:20px;
+  margin:0 auto 20px;
+  .bigsrc{
+    width:100%;
+    text-align: justify;
+    div{
+      width:20%;
+      height:240px;
+      float: left;
+      h3{
+        font-size: 12px;
+        line-height: 20px;
+        color:#333;
+      }
+      a{
+        color:#666;
+        line-height: 20px;
+        font-size: 9px;
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
+    &::after{
+      content: "";
+      display:inline-block;
+      height:0px;
+      width:100%;
+      font-size: 0px;
+      line-height: 0px;
+    }
+  }
+  @include bigscr{
+    display: none;
+  }
+}
+
+.forward{
+  max-width: 980px;
+  margin:0 auto;
+
+  @media screen and (max-width: 980px){
+    margin:0 20px;
+  }
+  border-bottom: 1px solid #ccc;
+  color:#666;
+  line-height: 26px;
+  font-size: 8px;
+  div:nth-child(1){
+    span{
+      display: block;
+      float: left;
+      min-width: 235px;
+    }
+  }
+  div:nth-child(2){
+    float:right;
+    height:26px;
+    .forimg{
+      width:26px;
+      height:26px;
+      float: left;
+      display: block;
+      background: url("../img/16.png") center center no-repeat;
+    }
+    a{
+      float: left;
+      line-height: 26px;
+      display: block;
+    }
+  }
+  a{
+    color: #2383c1;
+    line-height: 26px;
+    font-size: 8px;
+  }
+  @include bigscr{
+    overflow: hidden;
+    border-bottom: 0px;
+    div:nth-child(2){
+      float:left;
+      margin-bottom: 13px;
+    }
+    &::after{
+      content:"";
+      display:block;
+      width:100%;
+      height:0;
+    }
+  }
+}
+
+.foot{
+  max-width: 980px;
+  margin: 0 auto;
+  color:#666;
+  line-height: 26px;
+  font-size: 8px;
+  @media screen and (max-width: 980px){
+    margin:0 20px;
+    div:nth-child(1){
+      width:480px;
+    }
+  }
+  height:50px;
+  text-align: justify;
+  div{
+    float: left;
+    margin-right: 26px;
+    &:nth-child(2){
+      a{
+        color:#666;
+        line-height: 12px;
+        font-size: 8px;
+        &:hover{
+          text-decoration: underline;
+          color:#000;
+        }
+        display:block;
+        float:left;
+        border-right:1px solid #ccc;
+        padding-right:12px;
+        margin-right: 10px;
+        margin-top: 7px;
+        &:nth-child(5){
+          border: 0;
+        }
+      }
+    }
+      a{
+
+      }
+  }
+  &::after{
+    content: "";
+    width:100%;
+    height:0px;
+    display:inline-block;
+  }
+}
+.small-foot{
+  @include bigscr{
+    display: block;
+  }
+  @include bigbscr{
+    display: none;
+  }
+  ul{
+    margin: 17px;
+    overflow: hidden;
+    min-width: 288px;
+    .small-an{
+      &.dian{
+        height:auto;
+        position: relative;
+        .xiala{
+          visibility: visible;
+          transform: translate3d(0,0px,0);
+        }
+      }
+      line-height:38px;
+      color: #333;
+      height:38px;
+      background: #f2f2f2;
+      font-size: 10px;
+      border-bottom: 1px solid #e3e3e3;
+
+      .biaoti{
+        position: relative;
+        background: #f2f2f2;
+        border-bottom: 1px solid #e3e3e3;
+        top:0;
+        left:0;
+        z-index: 30;
+        width:100%;
+        span{
+          line-height: 38px;
+        }
+        .s_f_l{
+          float:left;
+        }
+        .s_f_r{
+          transition: transform 0.1s ease;
+          font-size: 15px;
+          float:right;
+        }
+        &:hover{
+          color:#000;
+          cursor: pointer;
+        }
+        input{
+          opacity: 0;
+        }
+      }
+      .xiala{
+        visibility: hidden;
+        top:38px;
+        left:0;
+        margin: 0;
+        position: static;
+        transform: translate3d(0,-50px,0);
+        z-index: 20;
+        transition:transform .3s ease;
+        li{
+          border: 0;
+          width:100%;
+          line-height:30px;
+          padding-left: 20px;
+          a{
+            color:#666;
+            font-size: 7px;
+            line-height:30px;
+            &:hover{
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      & input:checked{
+        &~ .s_f_r{
+          transform: rotate(45deg);
+        }
+      }
+
+
+    }
+  }
+}
+

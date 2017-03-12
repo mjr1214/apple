@@ -1,0 +1,37 @@
+*{
+  margin:0;
+  padding:0;
+  text-decoration: none;
+  list-style: none;
+  font-family: "微软雅黑";
+}
+a{
+  color:#ffffff;
+}
+$max-width:767px;
+@mixin bigscr{
+  @media screen and (max-width:$max-width){
+    @content;
+  }
+}
+
+$min-width:767px;
+@mixin bigbscr{
+  @media screen and (min-width:$min-width){
+    @content;
+  }
+}
+
+$ads-m:1070px;
+@mixin adsm{
+  @media screen and (max-width:$ads-m){
+    @content;
+  }
+}
+$ads-sma:736px;
+@mixin adss{
+  @media screen and (max-width:$ads-sma){
+    @content;
+  }
+}
+
